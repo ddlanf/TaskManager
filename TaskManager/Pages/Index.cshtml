@@ -1,0 +1,21 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h3 class="display-4">Welcome to Task Manager</h3>
+
+  
+    <div class="container pt-4">
+      <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+               <a class="btn btn-success" asp-page="/Assign">Assign a new task</a>
+          </li>
+          <li class="list-group-item">
+               <a class="btn btn-info text-white" asp-page="/Task">View tasks</a>
+          </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\bin\Debug\net6.0\TaskManager.BusinessLogic.deps.json
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\bin\Debug\net6.0\TaskManager.BusinessLogic.dll
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\bin\Debug\net6.0\ref\TaskManager.BusinessLogic.dll
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\bin\Debug\net6.0\TaskManager.BusinessLogic.pdb
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6.0\TaskManager.BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6.0\TaskManager.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6.0\TaskManager.BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6.0\TaskManager.BusinessLogic.AssemblyInfo.cs
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6.0\TaskManager.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6.0\TaskManager.BusinessLogic.dll
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6.0\ref\TaskManager.BusinessLogic.dll
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6.0\TaskManager.BusinessLogic.pdb

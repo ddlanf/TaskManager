@@ -1,0 +1,88 @@
+﻿@page
+@model TaskManager.Pages.AssignModel
+@{
+        ViewData["Title"] = "Assign Task";
+}
+
+<div class="alert alert-sucess display-5">
+    Assign a New Task
+</div>
+<div class="container pb-5">
+
+    <form method="post">
+        <div class="row p-3 border">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-8 pt-4">
+                <div class="form-group row mb-3">
+                    <div class="col-4">
+                        <label asp-for="@Model.TaskVM.AssignedProjectId">Project</label>
+                    </div>
+                    <div class="col-8">
+                        <select class="form-select" asp-for="@Model.TaskVM.AssignedProjectId" aria-label="@Model.TaskVM.AssignedProjectId">
+                            @foreach(var item in Model.TaskVM.Projects){
+                                <option value="@item.Id">@item.ProjectName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.TaskVM.AssignedProjectId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <div class="col-4">
+                        <label asp-for="@Model.TaskVM.Description"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="@Model.TaskVM.Description" type="text" class="form-control" />
+                        <span asp-validation-for="@Model.TaskVM.Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <div class="col-4">
+                        <label asp-for="@Model.TaskVM.StartDate">Start Date of Task [dd-mm-yyyy]</label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="@Model.TaskVM.StartDate" type="text" class="form-control" placeholder="01-01-2022"/>
+                        <span asp-validation-for="@Model.TaskVM.StartDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <div class="col-4">
+                        <label asp-for="@Model.TaskVM.DueDate">Due Date of Task [dd-mm-yyyy]</label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="@Model.TaskVM.DueDate" type="text" class="form-control" placeholder="01-01-2023"/>
+                        <span asp-validation-for="@Model.TaskVM.DueDate" class="text-danger"></span>
+                    </div>
+                </div>
+                 <div class="form-group row mb-3">
+                    <div class="col-4">
+                        <label asp-for="@Model.TaskVM.AssignedEmployeeIds">Who Should do this?</label>
+                    </div>
+                    <div class="col-8">
+                        <select class="form-select" asp-for="@Model.TaskVM.AssignedEmployeeIds" aria-label="@Model.TaskVM.AssignedEmployeeIds" multiple>
+                            @foreach(var item in Model.TaskVM.Employees){
+                                <option value="@item.Mid">@item.FirstName @item.LastName (@($"m{item.Mid}"))</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.TaskVM.AssignedEmployeeIds" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <div class="col-8 offset-4">
+                       <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary form-control mb-1">Submit</button>
+                            </div>
+                            <div class="col">
+                                <a asp-page="/Index" class="btn btn-secondary form-control mb-1">Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+     <partial name="_ValidationScriptsPartial" />
+}

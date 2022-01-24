@@ -1,0 +1,14 @@
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\bin\Debug\net6.0\TaskManager.DataAccess.deps.json
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\bin\Debug\net6.0\TaskManager.DataAccess.dll
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\bin\Debug\net6.0\ref\TaskManager.DataAccess.dll
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\bin\Debug\net6.0\TaskManager.DataAccess.pdb
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\obj\Debug\net6.0\TaskManager.DataAccess.csproj.AssemblyReference.cache
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\obj\Debug\net6.0\TaskManager.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\obj\Debug\net6.0\TaskManager.DataAccess.AssemblyInfoInputs.cache
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\obj\Debug\net6.0\TaskManager.DataAccess.AssemblyInfo.cs
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\obj\Debug\net6.0\TaskManager.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\obj\Debug\net6.0\TaskManager.DataAccess.dll
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\obj\Debug\net6.0\ref\TaskManager.DataAccess.dll
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\obj\Debug\net6.0\TaskManager.DataAccess.pdb
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\bin\Debug\net6.0\TaskManager.DataAccess.runtimeconfig.json
+C:\Users\danla\source\repos\TaskManager\TaskManager.DataAccess\obj\Debug\net6.0\TaskManager.DataAccess.genruntimeconfig.cache
