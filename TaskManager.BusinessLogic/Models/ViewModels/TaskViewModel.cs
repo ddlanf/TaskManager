@@ -9,7 +9,7 @@ namespace TaskManager.BusinessLogic.Models.ViewModels
 {
     public class TaskViewModel
     {
-        public List<Project> Projects { get; set; } = new();
+        public List<ProjectModel> Projects { get; set; } = new();
 
         [Required]
         public string Description { get; set; } = "";
@@ -22,7 +22,9 @@ namespace TaskManager.BusinessLogic.Models.ViewModels
 
         [Required]
         public int AssignedProjectId { get; set; }
-        public List<Employee> Employees { get; set; } = new();
+        public List<EmployeeModel> Employees { get; set; } = new();
         public List<int> AssignedEmployeeIds { get; set; } = new();
+
+        public List<ProjectTaskModel> ProjectTasks { get; set; } = new();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TaskManager.DataAccess.Entities
+namespace TaskManager.DataAccess.Data.Entities
 {
     public partial class Project
     {
@@ -12,7 +12,6 @@ namespace TaskManager.DataAccess.Entities
 
         public int Id { get; set; }
         public string ProjectName { get; set; } = null!;
-
-        public virtual ICollection<ProjectTask> Tasks { get; set; }
+        public virtual ICollection<ProjectTask>? Tasks { get; set; } 
     }
 }

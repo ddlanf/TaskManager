@@ -10,3 +10,6 @@ C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6
 C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6.0\TaskManager.BusinessLogic.dll
 C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6.0\ref\TaskManager.BusinessLogic.dll
 C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6.0\TaskManager.BusinessLogic.pdb
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\bin\Debug\net6.0\TaskManager.DataAccess.dll
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\bin\Debug\net6.0\TaskManager.DataAccess.pdb
+C:\Users\danla\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net6.0\TaskManager.BusinessLogic.csproj.CopyComplete

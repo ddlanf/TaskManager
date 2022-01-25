@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TaskManager.DataAccess.Entities
+namespace TaskManager.DataAccess.Data.Entities
 {
-    [Table(name:"Task")]
+    [Table(name:"Tasks")]
     public partial class ProjectTask
     {
         public int Id { get; set; }
@@ -12,9 +12,6 @@ namespace TaskManager.DataAccess.Entities
         public DateTimeOffset StartDate { get; set; }
         public DateTimeOffset DueDate { get; set; }
         public int? ProjectId { get; set; }
-        public int? EmployeeId { get; set; }
-
-        public virtual Employee? Employee { get; set; }
         public virtual Project? Project { get; set; }
     }
 }

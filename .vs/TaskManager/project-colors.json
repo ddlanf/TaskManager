@@ -5,7 +5,22 @@
       "ProjectGuid": "ae068754-e73a-4834-8c18-32bed08dab26",
       "DisplayName": "TaskManager",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "5228b514-1149-4d92-a1f4-52b3051b190b": {
+      "ProjectGuid": "5228b514-1149-4d92-a1f4-52b3051b190b",
+      "DisplayName": "TaskManager.DataAccess",
+      "ColorIndex": 1
+    },
+    "65b01256-fba3-4398-a4ea-ed344c4edd89": {
+      "ProjectGuid": "65b01256-fba3-4398-a4ea-ed344c4edd89",
+      "DisplayName": "TaskManager.BusinessLogic",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 3
 }

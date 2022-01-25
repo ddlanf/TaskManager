@@ -20,8 +20,13 @@ CREATE TABLE Tasks (
 	DueDate datetimeoffset NOT NULL,
 	ProjectID int, 
 	FOREIGN KEY (ProjectID) REFERENCES Projects(ID),
+);
+
+CREATE TABLE EmployeeTasks (
 	EmployeeID int, 
-	FOREIGN KEY (EmployeeID) REFERENCES Employees(MID)
+	FOREIGN KEY (EmployeeID) REFERENCES Employees(MID),
+	TaskID int, 
+	FOREIGN KEY (TaskID) REFERENCES Tasks(ID),
 );
 
 

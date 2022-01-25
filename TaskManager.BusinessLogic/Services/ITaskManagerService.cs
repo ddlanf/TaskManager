@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TaskManager.BusinessLogic.Models;
+using TaskManager.BusinessLogic.Models.ViewModels;
+
+namespace TaskManager.BusinessLogic.Services
+{
+    public interface ITaskManagerService
+    {
+        IEnumerable<ProjectTaskModel> GetAllTasks(int? projectId=0);
+        IEnumerable<EmployeeModel> GetEmployees();
+        IEnumerable<ProjectModel> GetProjects();
+        void AddTask(TaskViewModel task);
+    }
+}

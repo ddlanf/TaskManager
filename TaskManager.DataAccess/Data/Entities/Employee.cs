@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TaskManager.BusinessLogic.Models
+namespace TaskManager.DataAccess.Data.Entities
 {
     public partial class Employee
     {
@@ -9,6 +9,5 @@ namespace TaskManager.BusinessLogic.Models
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public string? EmploymentType { get; set; }
-        public virtual ICollection<Task>? Tasks { get; set; }
     }
 }
