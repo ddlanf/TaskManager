@@ -25,16 +25,24 @@ namespace TaskManager.Pages
         {
             if (ModelState.IsValid)
             {
-                _taskManagerService.AddTask(taskVM);
-                TempData["TaskCreatedMessage"] = "Details added successfully";
-                return RedirectToPage("Index");
+                try
+                {
+                    _taskManagerService.AddTask(taskVM);
+                    TempData["TaskCreatedMessage"] = "Details added successfully";
+                    return RedirectToPage("Index");
+                }
+                catch (Exception ex)
+                {
+                    taskVM.ServerErrorMessage = "Failed to creare a new task. Please try again later";
+                    return Page();
+                }
             }
             return Page();
         }
 
         public JsonResult OnGetEmployees(int projectId)
         {
-            var employees = _taskManagerService.GetEmployees(projectId);
+            var employees = _taskManagerService.GetEmployeesByProjectId(projectId);
             return new JsonResult(employees);
         }
 

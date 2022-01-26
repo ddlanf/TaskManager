@@ -11,6 +11,10 @@
         <a asp-page="/Index" class="btn btn-secondary form-control mb-1">Back</a>
     </div>
 </div>
+@if (!string.IsNullOrEmpty(Model.TaskVM.ServerErrorMessage))
+{
+    <p class="text-danger">Model.TaskVM.ServerErrorMessage</p>
+}
 <form method="post" class="mt-3" id="project-form">
     <div class="row p-3 border">
         <div class="col-4">

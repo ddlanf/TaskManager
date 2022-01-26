@@ -1,6 +1,11 @@
 USE master;
 USE TaskManager;  
 
+DROP TABLE IF EXISTS [EmployeeTasks]
+DROP TABLE IF EXISTS [Tasks]
+DROP TABLE IF EXISTS [Employees]
+DROP TABLE IF EXISTS [Projects]
+
 CREATE TABLE [Projects] (
 	[Id] int NOT NULL IDENTITY(1,1), 
 	[ProjectName] nvarchar(50) NOT NULL

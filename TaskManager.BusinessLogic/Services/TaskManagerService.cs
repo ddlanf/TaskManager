@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -14,7 +15,6 @@ namespace TaskManager.BusinessLogic.Services
     public class TaskManagerService : ITaskManagerService
     {
         private readonly IUnitOfWork _unitOfWork;
-
         public TaskManagerService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -22,17 +22,24 @@ namespace TaskManager.BusinessLogic.Services
 
         public void AddTask(TaskViewModel task)
         {
-            var dbEmployees = (ICollection<Employee>) _unitOfWork.Employees.GetAll(emp=>task.AssignedEmployeeIds.Contains(emp.Mid));
-            var dbTask = new ProjectTask()
+            try
             {
-                Description = task.Description,
-                StartDate = DateTimeOffset.Parse(task.StartDate),
-                DueDate = DateTimeOffset.Parse(task.DueDate),
-                ProjectId = task.AssignedProjectId,
-                Employees = dbEmployees
-            };
-            _unitOfWork.ProjectTasks.Add(dbTask);
-            _unitOfWork.Save();
+                var dbEmployees = (ICollection<Employee>)_unitOfWork.Employees.GetAll(emp => task.AssignedEmployeeIds.Contains(emp.Mid));
+                var dbTask = new ProjectTask()
+                {
+                    Description = task.Description,
+                    StartDate = DateTimeOffset.Parse(task.StartDate),
+                    DueDate = DateTimeOffset.Parse(task.DueDate),
+                    ProjectId = task.AssignedProjectId,
+                    Employees = dbEmployees
+                };
+                _unitOfWork.ProjectTasks.Add(dbTask);
+                _unitOfWork.Save();
+            }
+            catch(Exception ex)
+            {
+                //_logger.LogError("Failed to add a new task", ex);
+            }
         }
 
         public IEnumerable<ProjectTaskModel> GetAllTasks()
@@ -42,22 +49,23 @@ namespace TaskManager.BusinessLogic.Services
                 var dbTasks = _unitOfWork.ProjectTasks.GetAll(null,"Project,Employees").ToList();
                 return ConvertDbTaskToTaskModel(dbTasks);
             }
-            catch(Exception e) 
+            catch(Exception ex) 
             {
+               // _logger.LogError("Failed to retrieve tasks", ex);
                 return new List<ProjectTaskModel>();
             }
-           
         }
 
         public IEnumerable<ProjectTaskModel> GetAllTasks(int Id)
         {
             try
             {
-                var dbTasks = _unitOfWork.ProjectTasks.GetAll(t=>t.ProjectId==Id, "Project,Employees").ToList();
+                var dbTasks = _unitOfWork.ProjectTasks.GetAll(t=>t.ProjectId == Id, "Project,Employees").ToList();
                 return ConvertDbTaskToTaskModel(dbTasks);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+              //  _logger.LogError("Failed to retrieve tasks", ex);
                 return new List<ProjectTaskModel>();
             }
         }
@@ -84,16 +92,9 @@ namespace TaskManager.BusinessLogic.Services
                 })
             });
         }
-
-        public IEnumerable<EmployeeModel> GetEmployees()
+        public IEnumerable<EmployeeModel> GetEmployeesByProjectId(int id)
         {
-            var dbEmployees = (List<Employee>)_unitOfWork.Employees.GetAll();
-            return ConvertDbEmployeeToEmployeeModel(dbEmployees);
-        }
-
-        public IEnumerable<EmployeeModel> GetEmployees(int id)
-        {
-            var dbEmployees = (List<Employee>)_unitOfWork.Employees.GetAll(emp=>emp.ProjectId == id);
+            var dbEmployees = _unitOfWork.Employees.GetEmployeesByProjectIdWithStoredProcedure(id).ToList();
             return ConvertDbEmployeeToEmployeeModel(dbEmployees);
         }
 
@@ -110,7 +111,7 @@ namespace TaskManager.BusinessLogic.Services
 
         public IEnumerable<ProjectModel> GetProjects()
         {
-            var dbProjects = _unitOfWork.Projects.GetAll() as List<Project>;
+            var dbProjects = _unitOfWork.Projects.GetProjectsWithStoredProcedure().ToList();
             return dbProjects!.ConvertAll(p => new ProjectModel()
             {
                 Id = p.Id,

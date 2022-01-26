@@ -12,9 +12,7 @@ namespace TaskManager.BusinessLogic.Services
     {
         IEnumerable<ProjectTaskModel> GetAllTasks();
         IEnumerable<ProjectTaskModel> GetAllTasks(int Id);
-
-        IEnumerable<EmployeeModel> GetEmployees();
-        IEnumerable<EmployeeModel> GetEmployees(int Id);
+        IEnumerable<EmployeeModel> GetEmployeesByProjectId(int Id);
         IEnumerable<ProjectModel> GetProjects();
         void AddTask(TaskViewModel task);
     }

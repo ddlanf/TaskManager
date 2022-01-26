@@ -18,22 +18,36 @@ namespace TaskManager.Pages
 
         public void OnGet()
         {
-            TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks();
-            TaskVM.Projects = (List<ProjectModel>)_taskManagerService.GetProjects();
+            try
+            {
+                TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks();
+                TaskVM.Projects = (List<ProjectModel>)_taskManagerService.GetProjects();
+            }
+            catch (Exception ex)
+            {
+                TaskVM.ServerErrorMessage = "Failed to retrieve required information";
+            }
         }
 
         public void OnPost(TaskViewModel taskVM)
         {
             TaskVM.AssignedProjectId = taskVM.AssignedProjectId;
-            if (TaskVM.AssignedProjectId == 0)
+            try
             {
-                TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks();
+                if (TaskVM.AssignedProjectId == 0)
+                {
+                    TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks();
+                }
+                else
+                {
+                    TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks(taskVM.AssignedProjectId);
+                }
+                TaskVM.Projects = (List<ProjectModel>)_taskManagerService.GetProjects();
             }
-            else
+            catch (Exception ex)
             {
-                TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks(taskVM.AssignedProjectId);
+                TaskVM.ServerErrorMessage = "Failed to retrieve required information";
             }
-            TaskVM.Projects = (List<ProjectModel>)_taskManagerService.GetProjects();
         }
     }
 }

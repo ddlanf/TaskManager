@@ -2,11 +2,12 @@ USE master;
 USE TaskManager;
 GO  
 
-DROP PROCEDURE IF EXISTS dbo.GetEmployeeByProjectId;
+DROP PROCEDURE IF EXISTS dbo.GetEmployeesByProjectId;
 DROP PROCEDURE IF EXISTS dbo.GetProjects;
+
 Go
 
-CREATE PROCEDURE dbo.GetEmployeeByProjectId   
+CREATE PROCEDURE dbo.GetEmployeesByProjectId   
     @Id int
 AS   
     SET NOCOUNT ON;  
@@ -21,14 +22,10 @@ AS
 GO  
 
 CREATE PROCEDURE dbo.GetProjects   
-    @Id int
 AS   
     SET NOCOUNT ON;  
-    SELECT 
-	   [MId]
-      ,[FirstName]
-      ,[LastName]
-      ,[EmploymentType]
-      ,[ProjectId]
-	FROM [TaskManager].[dbo].[Employees] 
+    SELECT TOP (1000) [Id]
+      ,[ProjectName]
+    FROM [TaskManager].[dbo].[Projects]
 GO  
+

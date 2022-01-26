@@ -2,7 +2,6 @@ USE master
 USE TaskManager
 
 DELETE FROM dbo.EmployeeTasks;
-DBCC CHECKIDENT ('dbo.EmployeeTasks', RESEED, 0)
 DELETE FROM dbo.Tasks;
 DBCC CHECKIDENT ('dbo.Tasks', RESEED, 0)
 DELETE FROM dbo.Employees;

@@ -7,11 +7,8 @@ using TaskManager.DataAccess.Data.Entities;
 
 namespace TaskManager.DataAccess.Repository.Interface
 {
-    public interface IUnitOfWork
+    public interface IEmployeeDataAccess : ITaskManagerDataAccess<Employee>
     {
-        public ITaskDataAccess ProjectTasks { get; }
-        public IEmployeeDataAccess Employees { get; }
-        public IProjectDataAccess Projects { get; }
-        void Save();
+        IEnumerable<Employee> GetEmployeesByProjectIdWithStoredProcedure(int id);
     }
 }

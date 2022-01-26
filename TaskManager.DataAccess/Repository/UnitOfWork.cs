@@ -16,16 +16,14 @@ namespace TaskManager.DataAccess.Repository
         public UnitOfWork(TaskManagerContext db)
         {
             _db = db;
-            ProjectTasks = new TaskManagerDataAccess<ProjectTask>(_db);
-            Employees = new TaskManagerDataAccess<Employee>(_db);
-            Projects = new TaskManagerDataAccess<Project>(_db);
+            ProjectTasks = new TaskDataAccess(_db);
+            Employees = new EmployeeDataAccess(_db);
+            Projects = new ProjectDataAccess(_db);
         }
 
-        public ITaskManagerDataAccess<ProjectTask> ProjectTasks { get; }
-
-        public ITaskManagerDataAccess<Employee> Employees { get; }
-
-        public ITaskManagerDataAccess<Project> Projects { get; }
+        public ITaskDataAccess ProjectTasks { get; }
+        public IEmployeeDataAccess Employees { get; }
+        public IProjectDataAccess Projects { get; }
 
         public void Save()
         {

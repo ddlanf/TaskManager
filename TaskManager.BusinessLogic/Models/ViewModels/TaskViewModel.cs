@@ -32,6 +32,8 @@ namespace TaskManager.BusinessLogic.Models.ViewModels
         public List<int> AssignedEmployeeIds { get; set; } = new();
 
         public List<ProjectTaskModel> ProjectTasks { get; set; } = new();
+
+        public string? ServerErrorMessage { get; set; }
     }
 }
 

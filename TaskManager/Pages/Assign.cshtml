@@ -8,7 +8,10 @@
     Assign a New Task
 </div>
 <div class="container pb-5">
-
+    @if (!string.IsNullOrEmpty(Model.TaskVM.ServerErrorMessage))
+    {
+        <p class="text-danger">Model.TaskVM.ServerErrorMessage</p>
+    }
     <form method="post">
         <div class="row p-3 border">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
