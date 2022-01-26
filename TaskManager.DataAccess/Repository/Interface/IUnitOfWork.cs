@@ -12,7 +12,6 @@ namespace TaskManager.DataAccess.Repository.Interface
         ITaskManagerDataAccess<ProjectTask> ProjectTasks { get; }
         ITaskManagerDataAccess<Employee> Employees { get; }
         ITaskManagerDataAccess<Project> Projects { get; }
-        ITaskManagerDataAccess<EmployeeTask> EmployeeTasks { get; }
         void Save();
     }
 }

@@ -18,7 +18,6 @@ namespace TaskManager.Pages
 
         public void OnGet()
         {
-            TaskVM.AssignedProjectId = 0;
             TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks();
             TaskVM.Projects = (List<ProjectModel>)_taskManagerService.GetProjects();
         }
@@ -26,7 +25,14 @@ namespace TaskManager.Pages
         public void OnPost(TaskViewModel taskVM)
         {
             TaskVM.AssignedProjectId = taskVM.AssignedProjectId;
-            TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks(taskVM.AssignedProjectId);
+            if (TaskVM.AssignedProjectId == 0)
+            {
+                TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks();
+            }
+            else
+            {
+                TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks(taskVM.AssignedProjectId);
+            }
             TaskVM.Projects = (List<ProjectModel>)_taskManagerService.GetProjects();
         }
     }

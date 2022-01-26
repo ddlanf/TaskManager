@@ -1,32 +1,39 @@
 USE master;
 USE TaskManager;  
 
-CREATE TABLE Projects (
-	ID int PRIMARY KEY, 
-	ProjectName nvarchar(50) NOT NULL
+CREATE TABLE [Projects] (
+	[Id] int NOT NULL IDENTITY(1,1), 
+	[ProjectName] nvarchar(50) NOT NULL
+	CONSTRAINT [PK_Projects] PRIMARY KEY ([Id])
 );
 
 CREATE TABLE Employees (
-	MID int PRIMARY KEY, 
-	FirstName nvarchar(100) NOT NULL, 
-	LastName nvarchar(100) NOT NULL, 
-	EmploymentType nvarchar(50) 
+	[MId] int NOT NULL IDENTITY(1,1), 
+	[FirstName] nvarchar(100) NOT NULL, 
+	[LastName] nvarchar(100) NOT NULL, 
+	[EmploymentType] nvarchar(50),
+	[ProjectId] int NOT NULL, 
+	CONSTRAINT [PK_Employees] PRIMARY KEY ([MID]),
+	CONSTRAINT [FK_Employees] FOREIGN KEY ([ProjectId]) REFERENCES [Projects]([Id])
 );
 
 CREATE TABLE Tasks (
-	ID int PRIMARY KEY, 
-	Description nvarchar(200) NOT NULL,
-	StartDate datetimeoffset NOT NULL, 
-	DueDate datetimeoffset NOT NULL,
-	ProjectID int, 
-	FOREIGN KEY (ProjectID) REFERENCES Projects(ID),
+	[Id] int PRIMARY KEY IDENTITY(1,1), 
+	[Description] nvarchar(200) NOT NULL,
+	[StartDate] datetimeoffset NOT NULL, 
+	[DueDate] datetimeoffset NOT NULL,
+	[ProjectID] int NOT NULL, 
+	CONSTRAINT [FK_Tasks] FOREIGN KEY ([ProjectId]) REFERENCES [Projects]([Id])
+	ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE EmployeeTasks (
-	EmployeeID int, 
-	FOREIGN KEY (EmployeeID) REFERENCES Employees(MID),
-	TaskID int, 
-	FOREIGN KEY (TaskID) REFERENCES Tasks(ID),
+	[EmployeeId] int NOT NULL, 
+	[TaskId] int NOT NULL,
+	CONSTRAINT [PK_EmployeeTasks] PRIMARY KEY ([EmployeeId], [TaskId]),
+	CONSTRAINT [FK_EmployeeTasks_Employees_Id] FOREIGN KEY ([EmployeeId]) REFERENCES [Employees] ([MId]) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT [FK_EmployeeTasks_Tasks_Id] FOREIGN KEY ([TaskId]) REFERENCES [Tasks] ([Id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 

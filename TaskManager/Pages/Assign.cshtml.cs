@@ -8,6 +8,8 @@ namespace TaskManager.Pages
 {
     public class AssignModel : PageModel
     {
+        private const string V = "Employees";
+
         public TaskViewModel TaskVM { get; set; } = new();
         private ITaskManagerService _taskManagerService { get; }
         public AssignModel(ITaskManagerService taskManagerService)
@@ -17,15 +19,29 @@ namespace TaskManager.Pages
 
         public void OnGet()
         {
-            TaskVM.Projects = (List<ProjectModel>)_taskManagerService.GetProjects();
-            TaskVM.Employees = (List<EmployeeModel>)_taskManagerService.GetEmployees();
         }
 
         public IActionResult OnPost(TaskViewModel taskVM)
         {
-            _taskManagerService.AddTask(taskVM);
-            TempData["TaskCreated"] = true;
-            return RedirectToPage("Index");
+            if (ModelState.IsValid)
+            {
+                _taskManagerService.AddTask(taskVM);
+                TempData["TaskCreatedMessage"] = "Details added successfully";
+                return RedirectToPage("Index");
+            }
+            return Page();
+        }
+
+        public JsonResult OnGetEmployees(int projectId)
+        {
+            var employees = _taskManagerService.GetEmployees(projectId);
+            return new JsonResult(employees);
+        }
+
+        public JsonResult OnGetProjects()
+        {
+            var projects = _taskManagerService.GetProjects();
+            return new JsonResult(projects);
         }
     }
 }

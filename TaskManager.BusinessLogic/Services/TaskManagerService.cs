@@ -22,58 +22,25 @@ namespace TaskManager.BusinessLogic.Services
 
         public void AddTask(TaskViewModel task)
         {
+            var dbEmployees = (ICollection<Employee>) _unitOfWork.Employees.GetAll(emp=>task.AssignedEmployeeIds.Contains(emp.Mid));
             var dbTask = new ProjectTask()
             {
                 Description = task.Description,
                 StartDate = DateTimeOffset.Parse(task.StartDate),
                 DueDate = DateTimeOffset.Parse(task.DueDate),
                 ProjectId = task.AssignedProjectId,
+                Employees = dbEmployees
             };
-
             _unitOfWork.ProjectTasks.Add(dbTask);
-            
-            var employeeIds = task.AssignedEmployeeIds;
-            employeeIds.ForEach(id => _unitOfWork.EmployeeTasks.Add(
-                new EmployeeTask()
-                {
-                    EmployeeId = id,
-                    TaskId = dbTask.Id,
-                })
-            );
             _unitOfWork.Save();
         }
 
-        public IEnumerable<ProjectTaskModel> GetAllTasks(int? projectId=0)
+        public IEnumerable<ProjectTaskModel> GetAllTasks()
         {
             try
             {
-
-                var dbTasks = _unitOfWork.ProjectTasks.GetAll
-                   (projectId != 0 ? p => p.ProjectId == projectId : null,
-                   "Project"
-                ).ToList();
-                
-                var dbTaskIds = dbTasks.ConvertAll(t=>t.Id);
-                var dbEmployeeTasksIds = _unitOfWork.EmployeeTasks.GetAll(et => dbTaskIds.Contains(et.TaskId ?? 0), includeProperties : "Employee").ToList();
-
-                return dbTasks.ConvertAll(t => new ProjectTaskModel()
-                {
-                    Id = t.Id,
-                    Description = t.Description,
-                    StartDate = t.StartDate,
-                    DueDate = t.DueDate,
-                    Project = new ProjectModel()
-                    {
-                        Id = t.Project.Id,
-                        ProjectName = t.Project.ProjectName
-                    },
-                    Employees = dbEmployeeTasksIds.Where(et => et.TaskId == t.Id).ToList().ConvertAll(et => new EmployeeModel() { 
-                        FirstName = et.Employee.FirstName, 
-                        LastName = et.Employee.LastName,
-                        EmploymentType = et.Employee.EmploymentType,
-                        Mid = et.Employee.Mid,
-                    })
-                });
+                var dbTasks = _unitOfWork.ProjectTasks.GetAll(null,"Project,Employees").ToList();
+                return ConvertDbTaskToTaskModel(dbTasks);
             }
             catch(Exception e) 
             {
@@ -82,9 +49,56 @@ namespace TaskManager.BusinessLogic.Services
            
         }
 
+        public IEnumerable<ProjectTaskModel> GetAllTasks(int Id)
+        {
+            try
+            {
+                var dbTasks = _unitOfWork.ProjectTasks.GetAll(t=>t.ProjectId==Id, "Project,Employees").ToList();
+                return ConvertDbTaskToTaskModel(dbTasks);
+            }
+            catch (Exception e)
+            {
+                return new List<ProjectTaskModel>();
+            }
+        }
+
+        private IEnumerable<ProjectTaskModel> ConvertDbTaskToTaskModel(List<ProjectTask> dbTasks)
+        {
+            return dbTasks.ConvertAll(t => new ProjectTaskModel()
+            {
+                Id = t.Id,
+                Description = t.Description,
+                StartDate = t.StartDate,
+                DueDate = t.DueDate,
+                Project = new ProjectModel()
+                {
+                    Id = t.Project.Id,
+                    ProjectName = t.Project.ProjectName
+                },
+                Employees = t.Employees.ToList().ConvertAll(e => new EmployeeModel()
+                {
+                    FirstName = e.FirstName,
+                    LastName = e.LastName,
+                    EmploymentType = e.EmploymentType,
+                    Mid = e.Mid,
+                })
+            });
+        }
+
         public IEnumerable<EmployeeModel> GetEmployees()
         {
-            var dbEmployees = _unitOfWork.Employees.GetAll() as List<Employee>;
+            var dbEmployees = (List<Employee>)_unitOfWork.Employees.GetAll();
+            return ConvertDbEmployeeToEmployeeModel(dbEmployees);
+        }
+
+        public IEnumerable<EmployeeModel> GetEmployees(int id)
+        {
+            var dbEmployees = (List<Employee>)_unitOfWork.Employees.GetAll(emp=>emp.ProjectId == id);
+            return ConvertDbEmployeeToEmployeeModel(dbEmployees);
+        }
+
+        private IEnumerable<EmployeeModel> ConvertDbEmployeeToEmployeeModel(List<Employee> dbEmployees)
+        {
             return dbEmployees.ConvertAll(e => new EmployeeModel()
             {
                 Mid = e.Mid,
@@ -97,7 +111,7 @@ namespace TaskManager.BusinessLogic.Services
         public IEnumerable<ProjectModel> GetProjects()
         {
             var dbProjects = _unitOfWork.Projects.GetAll() as List<Project>;
-            return dbProjects.ConvertAll(p => new ProjectModel()
+            return dbProjects!.ConvertAll(p => new ProjectModel()
             {
                 Id = p.Id,
                 ProjectName = p.ProjectName,

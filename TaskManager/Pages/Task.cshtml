@@ -19,10 +19,10 @@
         <div class="col-8">
             <select class="form-select" asp-for="@Model.TaskVM.AssignedProjectId" aria-label="@Model.TaskVM.AssignedProjectId" onchange="submitForm()">
               
-                <option value="null">All Projects</option>
+                <option value="0">All Projects</option>
                 @foreach(var item in Model.TaskVM.Projects)
                 {
-                    if(Model.TaskVM.AssignedProjectId == item.Id){
+                    if(Model.TaskVM.AssignedProjectId != 0 && Model.TaskVM.AssignedProjectId == item.Id){
                         <option selected value="@item.Id">@item.ProjectName</option>
                     }
                     else
@@ -49,25 +49,33 @@
                     <li><b>Task Start Date</b>: @item.StartDate.Date.ToShortDateString()</li>
                     <li><b>Task Due Date</b>: @item.DueDate.Date.ToShortDateString()</li>
                 </ul>
-                <table class="table" style="width:80%">
-                    <thead>
-                    <tr>
-                        <th scope="col">MID</th>
-                        <th scope="col">Employee Name</th>
-                        <th scope="col">Employment Type</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var emp in item.Employees)
-                        {
-                            <tr>
-                                <td>@emp.Mid</td>
-                                <td>@emp.FirstName @emp.LastName</td>
-                                <td>@emp.EmploymentType</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                @if(item.Employees != null && item.Employees.Count() > 0)
+                {
+                   <table class="table" style="width:80%">
+                        <thead>
+                        <tr>
+                            <th scope="col">MID</th>
+                            <th scope="col">Employee Name</th>
+                            <th scope="col">Employment Type</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var emp in item.Employees)
+                            {
+                                <tr>
+                                    <td>@emp.Mid</td>
+                                    <td>@emp.FirstName @emp.LastName</td>
+                                    <td>@emp.EmploymentType</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>This task is not assigned to anyone</p>
+                }
+
             </div>
             <hr class="mb-4 mt-5"/>
         }

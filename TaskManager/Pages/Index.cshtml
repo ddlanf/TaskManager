@@ -2,12 +2,14 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    var message = TempData["TaskCreatedMessage"] as string;
 }
 
 <div class="text-center">
     <h3 class="display-4">Welcome to Task Manager</h3>
-
-  
+    @if(!String.IsNullOrEmpty(message)){
+        <h5 class="text-success">@message</h5>
+    }
     <div class="container pt-4">
       <ul class="list-group list-group-flush">
           <li class="list-group-item">

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager", "TaskManager\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.DataAccess", "TaskManager.DataAccess\TaskManager.DataAccess.csproj", "{5228B514-1149-4D92-A1F4-52B3051B190B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.BusinessLogic", "TaskManager.BusinessLogic\TaskManager.BusinessLogic.csproj", "{65B01256-FBA3-4398-A4EA-ED344C4EDD89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.BusinessLogic", "TaskManager.BusinessLogic\TaskManager.BusinessLogic.csproj", "{65B01256-FBA3-4398-A4EA-ED344C4EDD89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -20,7 +20,12 @@
       "ProjectGuid": "65b01256-fba3-4398-a4ea-ed344c4edd89",
       "DisplayName": "TaskManager.BusinessLogic",
       "ColorIndex": 2
+    },
+    "f936fefe-4359-4e61-b9d7-96f38552d583": {
+      "ProjectGuid": "f936fefe-4359-4e61-b9d7-96f38552d583",
+      "DisplayName": "ClassLibrary1",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 4
 }

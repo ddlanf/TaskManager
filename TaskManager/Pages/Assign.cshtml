@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{handler?}"
 @model TaskManager.Pages.AssignModel
 @{
         ViewData["Title"] = "Assign Task";
@@ -18,12 +18,8 @@
                         <label asp-for="@Model.TaskVM.AssignedProjectId">Project</label>
                     </div>
                     <div class="col-8">
-                        <select class="form-select" asp-for="@Model.TaskVM.AssignedProjectId" aria-label="@Model.TaskVM.AssignedProjectId">
-                            @foreach(var item in Model.TaskVM.Projects){
-                                <option value="@item.Id">@item.ProjectName</option>
-                            }
+                        <select class="form-select" asp-for="@Model.TaskVM.AssignedProjectId" aria-label="@Model.TaskVM.AssignedProjectId" id="project-list">
                         </select>
-                        <span asp-validation-for="@Model.TaskVM.AssignedProjectId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row mb-3">
@@ -58,10 +54,8 @@
                         <label asp-for="@Model.TaskVM.AssignedEmployeeIds">Who Should do this?</label>
                     </div>
                     <div class="col-8">
-                        <select class="form-select" asp-for="@Model.TaskVM.AssignedEmployeeIds" aria-label="@Model.TaskVM.AssignedEmployeeIds" multiple>
-                            @foreach(var item in Model.TaskVM.Employees){
-                                <option value="@item.Mid">@item.FirstName @item.LastName (@($"m{item.Mid}"))</option>
-                            }
+                        <select class="form-select" asp-for="@Model.TaskVM.AssignedEmployeeIds" aria-label="@Model.TaskVM.AssignedEmployeeIds" id="employee-list" multiple>
+                           
                         </select>
                         <span asp-validation-for="@Model.TaskVM.AssignedEmployeeIds" class="text-danger"></span>
                     </div>
@@ -70,7 +64,7 @@
                     <div class="col-8 offset-4">
                        <div class="row">
                             <div class="col">
-                                <button type="submit" class="btn btn-primary form-control mb-1">Submit</button>
+                                <button type="submit" class="btn btn-primary form-control mb-1">Add a Task</button>
                             </div>
                             <div class="col">
                                 <a asp-page="/Index" class="btn btn-secondary form-control mb-1">Back</a>
@@ -84,5 +78,42 @@
 </div>
 
 @section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $.get('/assign/projects').done(function (p) {
+                $.each(p, function (i, p) {
+                    var item = `<option value="${p.id}">${p.projectName}</option>`;
+                    $('#project-list').append(item);
+                });
+                getEmployeesById(p[0].id);
+            });
+        });
+
+        $('#project-list').change(function(){
+            var selectedItem =$('#project-list').children("option:selected").val();
+            $('#employee-list').empty();
+            getEmployeesById(selectedItem);
+        });
+
+        function getEmployeesById(id){
+             $.ajax({
+                type: "GET",
+                cache : false,
+                url: `/assign/employees?projectId=${id}`,
+                success: function (emp) {
+                    $.each(emp, function (i, emp) {
+                        var item = `<option value="${emp.mid}">${emp.firstName} ${emp.lastName} (m${emp.mid})</option>`;
+                        $('#employee-list').append(item);
+                    });
+                },
+                error: function (data) {
+                    var item = `<option disabled>Failed to retrieve employees</option>`;
+                        $('#employee-list').append(item);
+                }
+             });
+        }
+
+        
+    </script>
      <partial name="_ValidationScriptsPartial" />
 }
