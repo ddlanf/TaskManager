@@ -33,7 +33,7 @@ namespace TaskManager.Pages
                 }
                 catch (Exception ex)
                 {
-                    taskVM.ServerErrorMessage = "Failed to creare a new task. Please try again later";
+                    taskVM.ServerErrorMessage = "Failed to create a new task. Please try again later";
                     return Page();
                 }
             }
@@ -42,14 +42,30 @@ namespace TaskManager.Pages
 
         public JsonResult OnGetEmployees(int projectId)
         {
-            var employees = _taskManagerService.GetEmployeesByProjectId(projectId);
-            return new JsonResult(employees);
+            try 
+            {
+                var employees = _taskManagerService.GetEmployeesByProjectId(projectId);
+                return new JsonResult(employees);
+            }
+            catch
+            {
+                TaskVM.ServerErrorMessage = "Failed to retrieve required info. Please try again later";
+                return new JsonResult(new { error = "There was an error retrieving employees" });
+            }
         }
 
         public JsonResult OnGetProjects()
         {
-            var projects = _taskManagerService.GetProjects();
-            return new JsonResult(projects);
+            try
+            {
+                var projects = _taskManagerService.GetProjects();
+                return new JsonResult(projects);
+            }
+            catch
+            {
+                TaskVM.ServerErrorMessage = "Failed to retrieve required info. Please try again later";
+                return new JsonResult(new { error = "There was an error retrieving projects" });
+            }
         }
     }
 }

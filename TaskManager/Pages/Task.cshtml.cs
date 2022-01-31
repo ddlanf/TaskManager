@@ -20,8 +20,8 @@ namespace TaskManager.Pages
         {
             try
             {
-                TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks();
-                TaskVM.Projects = (List<ProjectModel>)_taskManagerService.GetProjects();
+                TaskVM.ProjectTasks = _taskManagerService.GetAllTasks().ToList();
+                TaskVM.Projects = _taskManagerService.GetProjects().ToList();
             }
             catch (Exception ex)
             {
@@ -36,13 +36,13 @@ namespace TaskManager.Pages
             {
                 if (TaskVM.AssignedProjectId == 0)
                 {
-                    TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks();
+                    TaskVM.ProjectTasks = _taskManagerService.GetAllTasks().ToList();
                 }
                 else
                 {
-                    TaskVM.ProjectTasks = (List<ProjectTaskModel>)_taskManagerService.GetAllTasks(taskVM.AssignedProjectId);
+                    TaskVM.ProjectTasks = _taskManagerService.GetAllTasks(taskVM.AssignedProjectId).ToList();
                 }
-                TaskVM.Projects = (List<ProjectModel>)_taskManagerService.GetProjects();
+                TaskVM.Projects = _taskManagerService.GetProjects().ToList();
             }
             catch (Exception ex)
             {

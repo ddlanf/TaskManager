@@ -25,7 +25,12 @@
       "ProjectGuid": "f936fefe-4359-4e61-b9d7-96f38552d583",
       "DisplayName": "ClassLibrary1",
       "ColorIndex": 3
+    },
+    "157af750-c997-4b35-abf7-1b3e6738309a": {
+      "ProjectGuid": "157af750-c997-4b35-abf7-1b3e6738309a",
+      "DisplayName": "TaskManager.Test",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 5
 }
