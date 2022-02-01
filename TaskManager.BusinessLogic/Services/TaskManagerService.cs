@@ -20,28 +20,6 @@ namespace TaskManager.BusinessLogic.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void AddTask(TaskViewModel task)
-        {
-            try
-            {
-                var dbEmployees = (ICollection<Employee>)_unitOfWork.Employees.GetAll(emp => task.AssignedEmployeeIds.Contains(emp.Mid));
-                var dbTask = new ProjectTask()
-                {
-                    Description = task.Description,
-                    StartDate = DateTimeOffset.Parse(task.StartDate),
-                    DueDate = DateTimeOffset.Parse(task.DueDate),
-                    ProjectId = task.AssignedProjectId,
-                    Employees = dbEmployees
-                };
-                _unitOfWork.ProjectTasks.Add(dbTask);
-                _unitOfWork.Save();
-            }
-            catch(Exception ex)
-            {
-                //_logger.LogError("Failed to add a new task", ex);
-            }
-        }
-
         public IEnumerable<ProjectTaskModel> GetAllTasks()
         {
             try
@@ -49,10 +27,9 @@ namespace TaskManager.BusinessLogic.Services
                 var dbTasks = _unitOfWork.ProjectTasks.GetAll(null,"Project,Employees").ToList();
                 return ConvertDbTaskToTaskModel(dbTasks);
             }
-            catch(Exception ex) 
+            catch (Exception)
             {
-               // _logger.LogError("Failed to retrieve tasks", ex);
-                return new List<ProjectTaskModel>();
+                throw;
             }
         }
 
@@ -63,10 +40,9 @@ namespace TaskManager.BusinessLogic.Services
                 var dbTasks = _unitOfWork.ProjectTasks.GetAll(t=>t.ProjectId == Id, "Project,Employees").ToList();
                 return ConvertDbTaskToTaskModel(dbTasks);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-              //  _logger.LogError("Failed to retrieve tasks", ex);
-                return new List<ProjectTaskModel>();
+                throw;
             }
         }
 
@@ -92,6 +68,29 @@ namespace TaskManager.BusinessLogic.Services
                 })
             });
         }
+
+        public void AddTask(TaskViewModel task)
+        {
+            try
+            {
+                var dbEmployees = (ICollection<Employee>)_unitOfWork.Employees.GetAll(emp => task.AssignedEmployeeIds.Contains(emp.Mid));
+                var dbTask = new ProjectTask()
+                {
+                    Description = task.Description,
+                    StartDate = DateTimeOffset.Parse(task.StartDate),
+                    DueDate = DateTimeOffset.Parse(task.DueDate),
+                    ProjectId = task.AssignedProjectId,
+                    Employees = dbEmployees
+                };
+                _unitOfWork.ProjectTasks.Add(dbTask);
+                _unitOfWork.Save();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public IEnumerable<EmployeeModel> GetEmployeesByProjectId(int id)
         {
             var dbEmployees = _unitOfWork.Employees.GetEmployeesByProjectIdWithStoredProcedure(id).ToList();
@@ -111,13 +110,20 @@ namespace TaskManager.BusinessLogic.Services
 
         public IEnumerable<ProjectModel> GetProjects()
         {
-            var dbProjects = _unitOfWork.Projects.GetProjectsWithStoredProcedure().ToList();
-            return dbProjects!.ConvertAll(p => new ProjectModel()
+            try
             {
-                Id = p.Id,
-                ProjectName = p.ProjectName,
-                Tasks = new List<ProjectTaskModel>()
-            });
+                var dbProjects = _unitOfWork.Projects.GetProjectsWithStoredProcedure().ToList();
+                return dbProjects!.ConvertAll(p => new ProjectModel()
+                {
+                    Id = p.Id,
+                    ProjectName = p.ProjectName,
+                    Tasks = new List<ProjectTaskModel>()
+                });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ namespace TaskManager.DataAccess.Repository
     public  class EmployeeDataAccess : TaskManagerDataAccess<Employee>, IEmployeeDataAccess
     {
         private readonly TaskManagerContext _db;
+
         public EmployeeDataAccess(TaskManagerContext db) : base(db)
         {
             _db = db;

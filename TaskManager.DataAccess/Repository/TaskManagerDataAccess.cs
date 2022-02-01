@@ -22,7 +22,7 @@ namespace TaskManager.DataAccess.Repository
 
         public void Add(T item)
         {
-            dbSet.Add(item);
+           dbSet.Add(item);
         }
 
         public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)

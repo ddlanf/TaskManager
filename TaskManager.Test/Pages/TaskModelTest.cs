@@ -28,7 +28,7 @@ namespace TaskManager.Test.Pages
         public void OnGetRetrievesProjectsAndAssignsToTaskVM()
         {
 
-            var expectedProjects = MockData.projectModels;
+            var expectedProjects = MockData.GetProjectModels();
             _mockTaskManagerService.Setup(m => m.GetProjects())
                         .Returns(expectedProjects);
             _pageModel.OnGet();
@@ -44,7 +44,7 @@ namespace TaskManager.Test.Pages
         [Fact]
         public void OnGetRetrievesTasksAndAssignsToTaskVM()
         {
-            var expectedTasks = MockData.projectTaskModels;
+            var expectedTasks = MockData.GetProjectTaskModels();
             _mockTaskManagerService.Setup(m => m.GetAllTasks())
                         .Returns(expectedTasks);
             _pageModel.OnGet();
@@ -72,7 +72,7 @@ namespace TaskManager.Test.Pages
         [Fact]
         public void OnGetSetsErrorMessageOnServerError()
         {
-            var expectedProjects = MockData.projectModels;
+            var expectedProjects = MockData.GetProjectModels();
             _mockTaskManagerService.Setup(m => m.GetProjects())
                         .Throws(new Exception());
             _mockTaskManagerService.Setup(m => m.GetAllTasks())
@@ -102,7 +102,7 @@ namespace TaskManager.Test.Pages
             {
                 AssignedProjectId = 0
             };
-            var expectedTasks = MockData.projectTaskModels;
+            var expectedTasks = MockData.GetProjectTaskModels();
             _mockTaskManagerService.Setup(m => m.GetAllTasks())
                         .Returns(expectedTasks);
 
@@ -134,7 +134,7 @@ namespace TaskManager.Test.Pages
             {
                 AssignedProjectId = 1
             };
-            var expectedTasks = MockData.projectTaskModels.Where(task=>task.Project!.Id == taskVM.AssignedProjectId).ToList();
+            var expectedTasks = MockData.GetProjectTaskModels().Where(task=>task.Project!.Id == taskVM.AssignedProjectId).ToList();
             _mockTaskManagerService.Setup(m => m.GetAllTasks())
                         .Returns(expectedTasks);
 
@@ -166,7 +166,7 @@ namespace TaskManager.Test.Pages
             {
                 AssignedProjectId = 0
             };
-            var expectedProjects = MockData.projectModels;
+            var expectedProjects = MockData.GetProjectModels();
             _mockTaskManagerService.Setup(m => m.GetProjects())
                         .Returns(expectedProjects);
             _pageModel.OnPost(taskVM);
@@ -186,7 +186,7 @@ namespace TaskManager.Test.Pages
             {
                 AssignedProjectId = 0
             };
-            var expectedProjects = MockData.projectModels;
+            var expectedProjects = MockData.GetProjectModels();
             _mockTaskManagerService.Setup(m => m.GetProjects())
                         .Throws(new Exception());
             _mockTaskManagerService.Setup(m => m.GetAllTasks())

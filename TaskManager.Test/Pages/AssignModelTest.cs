@@ -90,7 +90,7 @@ namespace TaskManager.Test.Pages
         {
             var projectId = 1;
             var result = _pageModel.OnGetEmployees(projectId);
-            var expectedEmpployees = MockData.employeeModels;
+            var expectedEmpployees = MockData.GetEmployeeModels();
 
             _mockTaskManagerService.Setup(m => m.GetEmployeesByProjectId(projectId))
                 .Returns(expectedEmpployees);
@@ -138,7 +138,7 @@ namespace TaskManager.Test.Pages
         public void OnGetProjectsReturnJsonResultWithWithAListOfProjectObjectOnSuccess()
         {
             var result = _pageModel.OnGetProjects();
-            var expectedProjects = MockData.projectModels;
+            var expectedProjects = MockData.GetProjectModels();
             var resultJsonString = JsonConvert.SerializeObject(result.Value);
             var json = JsonConvert.DeserializeObject<List<ProjectModel>>(resultJsonString);
             for (int i = 0; i < json!.Count; i++)
