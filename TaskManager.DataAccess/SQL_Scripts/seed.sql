@@ -1,13 +1,25 @@
 USE master
 USE TaskManager
 
-DELETE FROM dbo.EmployeeTasks;
-DELETE FROM dbo.Tasks;
-DBCC CHECKIDENT ('dbo.Tasks', RESEED, 0)
-DELETE FROM dbo.Employees;
-DBCC CHECKIDENT ('dbo.Employees', RESEED, 0)
-DELETE FROM dbo.Projects;
-DBCC CHECKIDENT ('dbo.Projects', RESEED, 0)
+IF EXISTS (SELECT 1 FROM dbo.EmployeeTasks)
+    BEGIN
+       DELETE FROM dbo.EmployeeTasks;
+    END
+IF EXISTS (SELECT 1 FROM dbo.Tasks)
+    BEGIN
+        DELETE FROM dbo.Tasks;
+        DBCC CHECKIDENT ('dbo.Tasks', RESEED, 0)
+    END
+IF EXISTS (SELECT 1 FROM dbo.Employees)
+    BEGIN
+        DELETE FROM dbo.Employees;
+        DBCC CHECKIDENT ('dbo.Employees', RESEED, 0)
+    END
+IF EXISTS (SELECT 1 FROM dbo.Projects)
+    BEGIN
+        DELETE FROM dbo.Projects;
+        DBCC CHECKIDENT ('dbo.Projects', RESEED, 0)
+    END
 
 INSERT INTO dbo.Projects
 (ProjectName)
